@@ -10,76 +10,78 @@ import { Card } from 'react-native-paper';
 
 export default class App extends React.Component {
   state = {
-    FullName: '', password: '', email: '', instructor: false,
-  }
+    FullName: '',
+    password: '',
+    email: '',
+    instructor: false,
+  };
   onChangeText = (key, val) => {
-    this.setState({ [key]: val })
+    this.setState({ [key]: val });
+  };
+
+  
+  validName(myString) {
+    return /^[A-Za-z\s]+$/gi.test(myString);
   }
 
+  nameChangeText = (key, val) => {
+    if (this.validName(val)) {
+      this.setState({ [key]: val });
+    }
+  };
+
+
   signUp = async () => {
-    const { FullName, password, email} = this.state
+    const { FullName, password, email } = this.state;
     try {
       // here place your signup logic
-      console.log('user successfully signed up!')
+      console.log('user successfully signed up!');
     } catch (err) {
-      console.log('error signing up: ', err)
+      console.log('error signing up: ', err);
     }
-  }
+  };
 
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.title}>Sign up for RecordKeeper!</Text>
 
-        <Text style={styles.title}>
-           Sign up for RecordKeeper!
-        </Text>
+        <Text style={styles.paragraph}>Full name:</Text>
 
-        <Text style={styles.paragraph}>
-           Full name:
-        </Text>
-        
         <TextInput
           style={styles.input}
-          placeholder='Enter your full name'
+          
           autoCapitalize="words"
-          placeholderTextColor='black'
-          onChangeText={val => this.onChangeText('username', val)}
+          placeholderTextColor="black"
+          value={this.state.FullName}
+          onChangeText={val => this.nameChangeText('FullName', val)}
+          placeholder="Enter your full name"
         />
 
-        <Text style={styles.paragraph}>
-           Email address:
-        </Text>
-        
+        <Text style={styles.paragraph}>Email address:</Text>
+
         <TextInput
-        style={styles.input}
-        placeholder='Enter your email address'
-        autoCapitalize="none"
-        placeholderTextColor='black'
-        onChangeText={val => this.onChangeText('username', val)}
+          style={styles.input}
+          placeholder="Enter your email address"
+          autoCapitalize="none"
+          placeholderTextColor="black"
+          onChangeText={val => this.onChangeText('email', val)}
         />
 
-        <Text style={styles.paragraph}>
-           Password:
-        </Text>
-        
+        <Text style={styles.paragraph}>Password:</Text>
+
         <TextInput
-        style={styles.last}
-        secureTextEntry={true}
-        placeholder='Enter your password'
-        autoCapitalize="none"
-        placeholderTextColor='black'
-        botto
-        onChangeText={val => this.onChangeText('username', val)}
+          style={styles.last}
+          secureTextEntry={true}
+          placeholder="Enter your password"
+          autoCapitalize="none"
+          placeholderTextColor="black"
+          
+          onChangeText={val => this.onChangeText('password', val)}
         />
 
-        <Button style={styles.button}
-         title="Sign up!"
-         onPress={this.signUp}
-         />
-
-
-
+        <Button style={styles.button} title="Sign up!" onPress={this.signUp} />
       </View>
     );
   }
@@ -97,24 +99,23 @@ const styles = StyleSheet.create({
     margin: 3,
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'left',
+    //textAlign: 'left',
   },
 
-  title:{
-    textAlign:'center',
+  title: {
+   // textAlign: 'center',
     //justifyContent:'center',
-    fontSize:40,
+    fontSize: 40,
   },
-  button:{
+  button: {
     margin: 100,
     borderRadius: 30,
     color: 'red',
-
   },
   input: {
     width: '95%',
     height: 40,
-    alignSelf: 'left',
+    //alignSelf: 'left',
     backgroundColor: 'white',
     margin: 2,
     padding: 8,
@@ -124,10 +125,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-    last: {
+  last: {
     width: '95%',
     height: 40,
-    alignSelf: 'left',
+    //alignSelf: 'left',
     backgroundColor: 'white',
     margin: 4,
     padding: 8,
@@ -136,6 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     //borderBottomWidth: 10,
-   marginBottom :25,
+    marginBottom: 25,
   },
 });
